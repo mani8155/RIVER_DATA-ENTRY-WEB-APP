@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h4 class="fw-bold py-3 mb-4">Cadastral Line</h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data" id="temp-form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+
+        <h5 class="mt-4">Add</h5>
+        <button class="btn btn-sm btn-outline-info" id="addFieldsButton" type="button"><i
+                class='bx bxs-add-to-queue'></i> Add Row
+        </button>
+
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table">
+            <thead align="center">
+            <tr>
+                <th>Ward</th>
+                <th>Block</th>
+                <th>Town</th>
+                <th>Taluk</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+
+              {% for sub_data in sub_cadastral_data_list %}
+
+            <tr id="tableRow-1">
+                <td>
+<!--                  <select class="form-control-sm" id="id_ward" name="ward" selected onchange="Test(this)">-->
+<!--                    <option disabled selected>-&#45;&#45;&#45;&#45;select&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                    {% for obj in ward_lists %}-->
+<!--                    <option value="{{obj}}">{{obj}}</option>-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+
+
+                    <select class="form-control-sm" id="id_ward" name="ward" onchange="Test(this)" selected>
+                        {% if sub_data %}
+                        <option selected value="{{ sub_data.ward }}">{{ sub_data.ward }}</option>
+                        {% else %}
+                        <option disabled selected>-----select------</option>
+                            {% for obj in ward_lists %}
+                            <option value="{{obj}}">{{obj}}</option>
+                            {% endfor %}
+                        {% endif %}
+
+                    </select>
+
+
+                </td>
+
+                <td><select class="form-control-sm" id="id_block" name="block" selected onchange="Block(this)">
+<!--                    <option disabled selected>-&#45;&#45;&#45;&#45;select&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                       {% if sub_data %}
+                        <option selected value="{{ sub_data.block }}">{{ sub_data.block }}</option>
+                        {% else %}
+                        <option disabled selected>-----select------</option>
+                        {% endif %}
+
+
+                </select>
+                </td>
+
+                <td><input class="form-control-sm" id="id_town" maxlength="200" name="town" type="text" value="{{sub_data.town}}"></td>
+                <td><input class="form-control-sm" id="id_taluk" maxlength="200" name="taluk" type="text" value="{{sub_data.taluk}}"></td>
+
+
+                 <td><select class="form-control-sm" id="id_lat" name="lat" selected>
+                     {% if sub_data %}
+                      <option selected value="{{ sub_data.lat }}">{{ sub_data.lat }}</option>
+                        {% else %}
+                    <option disabled selected>-----select------</option>
+                     {% endif %}
+                </select>
+                </td>
+
+                <td><input type="text" name="long" maxlength="200" class="form-control-sm" id="id_long" value="{{sub_data.long}}"></td>
+
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)" type="button"><i class="bx bxs-trash"></i>
+                    </button>
+                </td>
+            </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+      <input type="submit" class="btn btn-primary mt-3" value="Submit">
+    </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  let totalRows = 1;
+  let tableBody = document.getElementById('tableBody');
+  const addFieldsButton = document.getElementById('addFieldsButton');
+
+  let rows = `
+   <tr id="tableRow-1">
+
+        <td>
+            <select class="form-control-sm" id="id_ward" name="ward" selected onchange="Test(this)">
+                <option disabled selected>-----select------</option>
+                {% for obj in ward_lists %}
+                <option value="{{obj}}">{{obj}}</option>
+                {% endfor %}
+            </select>
+        </td>
+
+       <td>
+
+          <select class="form-control-sm" id="id_block" name="block" selected onchange="Block(this)">
+                 <option disabled selected>-----select------</option>
+          </select>
+        </td>
+
+        <td><input class="form-control-sm" id="id_town" maxlength="200" name="town" type="text"></td>
+        <td><input class="form-control-sm" id="id_taluk" maxlength="200" name="taluk" type="text"></td>
+
+        <td><select class="form-control-sm" id="id_lat" name="lat" selected onchange="Long(this)">
+          <option disabled selected>-----select------</option>
+      </select>
+      </td>
+
+      <td><input type="text" name="long" maxlength="200" class="form-control-sm" id="id_long"></td>
+
+
+        <td>
+            <button class="btn btn-danger btn-sm" onclick="deleteRow(this)" type="button"><i class="bx bxs-trash"></i>
+            </button>
+        </td>
+   </tr>`
+
+
+
+
+  function getDeviations() {
+    const parentElement = document.getElementById('tableBody');
+    const children = parentElement.children;
+    let deviations = []
+
+    for (let i=0; i<children.length; i++){
+      let tRow = children[i];
+      let ward = tRow.querySelector('#id_ward').value;
+
+      let town = tRow.querySelector('#id_town').value;
+      let taluk = tRow.querySelector('#id_taluk').value;
+      let block = tRow.querySelector('#id_block').value;
+
+      let lat = tRow.querySelector('#id_lat').value;
+      let long = tRow.querySelector('#id_long').value;
+
+      deviations.push({
+        ward: ward,
+        town: town,
+        taluk: taluk,
+        block: block,
+        lat: lat,
+        long: long
+
+      })
+    }
+
+    return deviations;
+  }
+
+
+   addFieldsButton.addEventListener('click', function () {
+    deviations = getDeviations();
+
+    console.log(deviations);
+
+    tableBody.innerHTML = "";
+    for (let i=0; i<deviations.length; i++) {
+      let row = `
+      <tr>
+
+         <td>
+            <select class="form-control-sm" id="id_ward" name="ward" value="${deviations[i].ward}" selected onchange="Test(this)">
+
+              <option value="${deviations[i].ward}">${deviations[i].ward}</option>
+
+            </select>
+        </td>
+
+        <td> <select class="form-control-sm" id="id_block" name="block" value="${deviations[i].block}" selected>
+
+                 <option value="${deviations[i].block}">${deviations[i].block}</option>
+
+             </select>
+       </td>
+
+        <td><input type="text" name="town" maxlength="200" class="form-control-sm" id="id_town" value="${deviations[i].town}"></td>
+        <td><input type="text" name="taluk" maxlength="200" class="form-control-sm" id="id_taluk" value="${deviations[i].taluk}"></td>
+
+      <td> <select class="form-control-sm" id="id_lat" name="lat" value="${deviations[i].lat}" selected onchange="Long(this)">
+          <option value="${deviations[i].lat}">${deviations[i].lat}</option>
+           </select>
+      </td>
+
+      <td><input type="text" name="long" maxlength="200" class="form-control-sm" id="id_long" value="${deviations[i].long}"></td>
+
+
+       <td>
+            <button class="btn btn-danger btn-sm" onclick="deleteRow(this)" type="button"><i class="bx bxs-trash"></i></button>
+        </td>
+
+
+      </tr>
+      `
+      tableBody.innerHTML += row;
+    }
+
+    tableBody.innerHTML += rows
+  });
+
+
+
+  function deleteRow(element) {
+    element.parentNode.parentNode.remove();
+  }
+
+
+
+    $('form#temp-form').submit(function (e) {
+    e.preventDefault();
+
+    let cadastral = {
+      unique_id: document.getElementById('id_unique_id').value,
+      river_name: document.getElementById('id_river_name').value,
+      deviations: getDeviations()
+    }
+
+
+
+
+    let output = JSON.stringify(cadastral);
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'edit_cadastramaster_form_json' %}",
+      data: {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          output: output,
+          id: {{id}}
+      },
+      success: function (response) {
+          location = "{% url 'cadastral-master' %}"
+      },
+      error: function (response) {
+          console.log(response);
+          console.log("Unable to load data");
+      }
+  });
+
+
+
+
+});
+
+
+</script>
+
+<script>
+
+ function Test(selectElement) {
+        var selectedValue = selectElement.value;
+        let parentElement = selectElement.parentNode.parentNode;
+        let blockName = parentElement.querySelector('#id_block');
+
+           $.ajax({
+                    type: 'GET',
+                    url: {% url 'get_ward_cadastral_master' %},
+                    data: {'selected_value': selectedValue},
+                    success: function (data) {
+
+                        console.log(data);
+                        var block_name = data['block_name']
+
+                        blockName.innerHTML = "";
+
+                        blockName.innerHTML += "<option disabled selected>-----select------</option>";
+                        blockName.innerHTML += `<option value="${block_name}">${block_name}</option>`;
+
+                        console.log(blockName);
+
+
+                    }
+                });
+
+    }
+
+</script>
+
+
+<script>
+    function Block(selectElement){
+        select_data = selectElement.value;
+        let parentElement = selectElement.parentNode.parentNode;
+        let id_town = parentElement.querySelector('#id_town');
+        let id_taluk = parentElement.querySelector('#id_taluk');
+        let bNo = parentElement.querySelector('#id_lat');
+
+
+          $.ajax({
+                    type: 'GET',
+                    url: {% url 'block_use_get_data' %},
+                    data: {'selected_value': select_data},
+                    success: function (data) {
+
+                        id_town.value =  data.town_name;
+                        id_taluk.value = data.taluk_name;
+
+
+                        let sub_table_data = data['sub_table']
+
+                        bNo.innerHTML = "";
+                        bNo.innerHTML += "<option disabled selected>-----select------</option>";
+
+                        for (let i=0; i<sub_table_data.length; i++) {
+
+                          bNo.innerHTML += `<option value="${sub_table_data[i].lattitude}">${sub_table_data[i].lattitude}</option>`;
+                        }
+
+
+
+                    }
+                });
+
+
+    }
+</script>
+
+<script>
+  function Long(selectElement){
+
+    select_data = selectElement.value;
+    let parentElement = selectElement.parentNode.parentNode;
+    let id_long = parentElement.querySelector('#id_long');
+
+
+
+      $.ajax({
+                type: 'GET',
+                url: {% url 'longitude_get_data' %},
+                data: {'selected_value': select_data},
+                success: function (data) {
+
+                    id_long.value =  data.langitutte;
+
+
+
+                }
+            });
+
+
+  }
+
+
+</script>
+
+
+
+
+{% endblock content %}
+
+
+
+
+

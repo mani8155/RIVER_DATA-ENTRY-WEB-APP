@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+
+  <div class="alert alert-danger mt-5" role="alert">
+    Are you sure you want to delete ? Sub Basin: {{obj.sub_basin}} | Town Name: {{obj.town_name}}
+  </div>
+
+  <div class="mt-3">
+    <p>
+      <a href="{% url 'list-of-street' %}"><--- Go Back</a>
+    </p>
+    <p>
+     <input class="btn btn-danger" type="submit" value="confirm">
+    </p>
+  </div>
+
+</form>
+
+{% endblock content %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+
+
+<h4 class="fw-bold py-3 mb-4">Create New User</h4>
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+
+
+
+            <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">username</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+
+                   <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">firstname</label>
+                <input type="text" class="form-control" id="firstname" name="firstname">
+            </div>
+
+              <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">Lastname</label>
+                <input type="text" class="form-control" id="last_name" name="last_name">
+            </div>
+
+                  <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">password</label>
+                <input type="text" class="form-control" id="password" name="password">
+            </div>
+
+
+
+                  <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">usertype</label>
+                <input type="text" class="form-control" id="usertype" name="usertype">
+            </div>
+
+                       <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">email</label>
+                <input type="text" class="form-control" id="email" name="email">
+            </div>
+
+<!--            <div class="mb-3 col-md-6">-->
+<!--                    <label for="dbConnection" class="form-label">user role</label>-->
+<!--                    <select class="form-control" name="userrole" id="userrole" multiple>-->
+<!--                        {% for urole in user_role_list %}-->
+<!--                        <option value="{{ urole.psk_id }}">{{ urole.role }}</option>-->
+<!--                      {% endfor %}-->
+<!--                    </select>-->
+<!--                </div>-->
+
+<!--                <div class="mb-3 col-md-6" id="dbCol">-->
+<!--                <label for="dbConnection" class="form-label">reporting to</label>-->
+<!--                  <select class="form-control" id="reporting" name="reporting">-->
+<!--                    <option selected="" value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Select -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                      {% for userna in users_names_list %}-->
+<!--                    <option value="{{ userna }}">{{ userna }}</option>-->
+<!--                      {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+
+
+
+
+            <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script>
+    new MultiSelectTag('userrole')  // id
+</script>
+
+
+{% endblock content %}
+

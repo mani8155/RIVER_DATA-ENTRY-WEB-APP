@@ -1,0 +1,63 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<h4 class="fw-bold">Type</h4>
+
+
+<!--<a href="{% url 'type-form' %}" class="btn btn-primary">-->
+<!--    <span class="tf-icons bx bx-list-plus"></span>&nbsp; Add New-->
+<!--</a>-->
+
+<div>
+   <form method="get" action="{% url 'li_search_values' %}">
+       <div class="row">
+<!--           <div class="col">-->
+<!--               <a class="btn btn-primary" href="{% url 'type-form' %}">-->
+<!--                   <span class="tf-icons bx bx-list-plus"></span> Add New-->
+<!--               </a>-->
+<!--           </div>-->
+
+<!--           <div class="col">-->
+<!--           </div>-->
+<!--           <div class="col">-->
+<!--           </div>-->
+
+
+<!--           <div class="col-md-4">-->
+<!--               <input type="text" class="form-control" name="search"  value="{{ search_query }}" placeholder="Search">-->
+<!--           </div>-->
+<!--           <div class="col">-->
+<!--              <button class="btn btn-success" type="submit">search</button>-->
+<!--&lt;!&ndash;               <a href="{% url 'list-type' %}" class="btn btn-warning btn-icon" ><i class='bx bxs-x-circle'></i></a>&ndash;&gt;-->
+<!--           </div>-->
+
+       </div>
+</form>
+</div>
+
+
+<div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table py-3" id="example">
+            <thead>
+                <tr>
+                    <th>List Type</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.list_type}}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
+

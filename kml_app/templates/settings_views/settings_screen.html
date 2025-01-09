@@ -1,0 +1,47 @@
+{% extends 'login/user_menus.html' %}
+
+{% block content %}
+
+    <h4 class="fw-bold py-3 mb-2">Settings</h4>
+
+
+<div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-3">
+        <table class="table py-3" id="example">
+            <thead>
+                <tr>
+                    <th>Application Name</th>
+                    <th>Api Url</th>
+                    <th>Favicon Caption</th>
+                    <th>Favicon Logo</th>
+                    <th>Action</th>
+
+            </thead>
+            <tbody class="table-border-bottom-0">
+            {% for obj in obj %}
+                <tr>
+                    <td>{{ obj.application_name }}</td>
+                    <td>{{ obj.api_url }}</td>
+                    <td>{{ obj.favicon_caption }}</td>
+                    <td><a href="{{ obj.favicon_logo.url }}" target="_blank">{{ obj.favicon_logo }}</a></td>
+
+                    <td>
+                        <a class="btn btn-icon btn-sm btn-primary"
+                           href="{% url 'settings_form' obj.id %}">
+                            <i class="bx bxs-edit"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+    
+    
+    
+{% endblock content %}

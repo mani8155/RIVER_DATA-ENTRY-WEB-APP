@@ -1,0 +1,164 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<h4 class="fw-bold py-3 mb-4">Boundary Pillar</h4>
+
+
+<!--<a href="{% url 'cadastal-form' %}" class="btn btn-primary">-->
+<!--    <span class="tf-icons bx bx-list-plus"></span>&nbsp; Add New-->
+<!--</a>-->
+
+<div class="mt-3">
+
+       <div class="row">
+           <div class="col">
+               <a class="btn btn-primary" href="{% url 'cadastal-form' %}">
+                   <span class="tf-icons bx bx-list-plus"></span> Add New
+               </a>
+           </div>
+
+
+           <div class="col"></div>
+           <div class="col"></div>
+
+
+           <div class="col btn-group" id="dropdown-icon-demo">
+            <button type="button" class="btn-info btn-sm dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="true"><i class="bx bx-menu me-1"></i>KML</button>
+            <ul class="dropdown-menu" style="">
+              <li><a href="" class="dropdown-item d-flex align-items-center" data-bs-target="#fieldUploadModalKml" data-bs-toggle="modal">Upload</a></li>
+              <li><a href="{% url 'boundary_kml_list' %}" class="dropdown-item d-flex align-items-center" >View List</a></li>
+            </ul>
+          </div>
+
+           <div class="col">
+               <div class="btn-group">
+                   <button data-bs-toggle="dropdown" class="btn dropdown-toggle btn-sm btn-gray"><img
+                           width="30px"
+                           src="{% static 'assets/img/avatars/microsoft-excel-icon.svg' %}">
+                   </button>
+                   <ul class="dropdown-menu" style="">
+                       <li><a href="" class="dropdown-item" data-bs-toggle="modal"
+                              data-bs-target="#fieldUploadModal"><i
+                               class='bx bxs-cloud-upload'></i>&nbsp;&nbsp;Import</a></li>
+                       <li><a class="dropdown-item" href="{% url 'sample_excel_BP' %}"><i class='bx bxs-download'></i>
+                           Template</a></li>
+
+                   </ul>
+               </div>
+           </div>
+
+
+       </div>
+
+</div>
+
+
+<div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table py-3" id="example">
+            <thead>
+                <tr>
+                    <th>Unique Id</th>
+                    <th>EASTING</th>
+                    <th>NORTHING</th>
+                    <th>Remark</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.unique_id}}</td>
+                        <td>{{field.latitude|floatformat:3 }}</td>
+                        <td>{{field.longitude|floatformat:3 }}</td>
+                        <td>{{field.remarks}}</td>
+                        <td>
+                         <a href="{% url 'photos_upload' field.id %}" class="btn  btn-sm btn-info" ><i class='bx bxs-image-add'></i></a>
+                            <a href="{% url 'new_CEntry_edit' field.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            <a href="{% url 'delete-cadastral' field.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade" id="fieldUploadModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"></h5>
+                <button
+                        aria-label="Close"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        type="button"
+                ></button>
+            </div>
+            <form method="post" enctype="multipart/form-data" action="{% url 'cadastral_entry_excel' %}">
+
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Excel Upload</label>
+                        <input accept=".xlx, .xlsx" class="form-control" id="id_upload_file" name="upload_file"
+                               type="file">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                        Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade" id="fieldUploadModalKml" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fieldUploadModalKml1"></h5>
+                <button
+                        aria-label="Close"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        type="button"
+                ></button>
+            </div>
+            <form method="post" enctype="multipart/form-data" action="{% url 'kml_file_upload_boundary' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                            Close
+                        </button>
+                        <button class="btn btn-primary" type="submit">Upload</button>
+                    </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

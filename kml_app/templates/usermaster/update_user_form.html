@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+
+
+<h4 class="fw-bold py-3 mb-4">Update User</h4>
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+            <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ obj.username }}">
+            </div>
+
+                   <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">firstname</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="{{ obj.first_name }}">
+            </div>
+
+            <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">lastname</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ obj.last_name }}">
+            </div>
+
+                  <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">usertype</label>
+                <input type="text" class="form-control" id="usertype" name="usertype" value="{{ obj.user_type }}">
+            </div>
+
+                       <div class="mb-3 col-md-6" id="dbCol">
+                <label class="form-label">email</label>
+                <input type="text" class="form-control" id="email" name="email" value="{{ obj.email }}">
+            </div>
+
+<!--            <div class="mb-3 col-md-6">-->
+<!--                    <label for="dbConnection" class="form-label">user role</label>-->
+<!--                    <select class="form-control" name="userrole" id="userrole" multiple>-->
+
+<!--                        {% for urole in user_role_list %}-->
+<!--{#                             <option value="{{urole.psk_id}}" {% if urole.psk_id == current_role %}selected{% endif %}>{{urole.role}}</option>#}-->
+<!--                             <option value="{{urole.psk_id}}" {% if urole.psk_id in current_role %}selected{% endif %}>{{urole.role}}</option>-->
+<!--                      {% endfor %}-->
+
+<!--                    </select>-->
+
+<!--                </div>-->
+
+<!--                <div class="mb-3 col-md-6" id="dbCol">-->
+<!--                <label for="dbConnection" class="form-label">reporting to</label>-->
+<!--                  <select class="form-control" id="reporting" name="reporting">-->
+
+<!--                    <option value="{{ obj.reporting_to }}">{{ obj.reporting_to }}</option>-->
+
+<!--                      {% for userna in users_names_list %}-->
+
+<!--                          {%  if obj.reporting_to == userna  %}-->
+
+<!--                          {% else %}-->
+
+<!--                    <option value="{{ userna }}">{{ userna }}</option>-->
+<!--                          {% endif %}-->
+<!--                      {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+
+
+
+
+            <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script>
+    new MultiSelectTag('userrole')  // id
+</script>
+
+
+{% endblock content %}
+

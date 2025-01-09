@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h4 class="fw-bold py-3 mb-4">{{obj.unique_id}} | {{obj.ward_region}}</h4>
+<div class="card mb-4">
+  <div class="card-body">
+
+      <h6>Unique Id : {{obj.unique_id}} </h6>
+      <h6>River name : {{obj.river_name}}</h6>
+  </div>
+</div>
+
+
+
+<div class="card mb-4">
+  <div class="card-body">
+
+       <h5 class="mt-4">Add Photos</h5>
+      <button class="btn btn-outline-info" data-bs-target="#fieldUploadModal" data-bs-toggle="modal" type="button"><i
+              class='bx bxs-add-to-queue'></i>
+      </button>
+
+<hr>
+
+
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    {% for photo in pre_image %}
+        <div class="col">
+            <div class="card h-100">
+                <a href="{{photo.photos.url }}" target="_blank"><img class="card-img-top" src="{{ photo.photos.url }}" alt="Card image cap" style="height: 200px; object-fit: cover;"></a>
+                <div class="card-body">
+                    <a href="{% url 'cn_delete_image' obj.id photo.id %}" class="btn btn-sm btn-danger btn-icon"><i class='bx bxs-trash'></i></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+<div aria-hidden="true" class="modal fade" id="fieldUploadModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">{{ field.river_name}}</h5>
+              <button
+                      aria-label="Close"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+              ></button>
+          </div>
+          <form enctype="multipart/form-data" method="post">
+              {% csrf_token %}
+              <div class="modal-body">
+
+                  <div class="mb-3">
+                      <label class="form-label">Image Upload</label>
+                      <input accept="image/jpeg, image/png," class="form-control" id="id_photos" name="photos"
+                             type="file">
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                      Close
+                  </button>
+                  <button class="btn btn-primary" type="submit">Save changes</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+      {% endblock content %}
+
+

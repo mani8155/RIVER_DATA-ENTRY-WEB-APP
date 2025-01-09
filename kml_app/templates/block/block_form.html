@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h4 class="fw-bold py-3 mb-4">New Entry</h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {% for field in form %}
+                                          <div class="mb-3">
+            <label class="form-label">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+      <button type="submit" name="form_request" class="btn btn-primary">Save</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#id_town_name').change(function () {
+            var townName = $(this).val();
+            if (townName) {
+                $.ajax({
+                    type: 'GET',
+                    url: {% url 'get_block' %},
+                    data: {'town_name': townName},
+                    success: function (data) {
+                        $('#id_revenue_division_no').val(data.revenue_division_no);
+                        $('#id_taluk_name').val(data.taluk_name);
+                        $('#id_district_name').val(data.district_name);
+                        $('#id_ward_name').val(data.ward_name);
+                    }
+                });
+            }
+        });
+    });
+
+
+
+</script>
+
+
+
+
+{% endblock content %}
+
+
+
+
+

@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>New Intrusion </h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+            <div class="mb-3 col-md-2">
+                <label class="form-label">{{field.label}}</label>
+                {{field}}
+            </div>
+            {% endfor %}
+
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_ward">Sub Bassin</label>
+                <select class="form-control" id="id_ward" name="ward"
+                        onchange="SelectSubbasin(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_district">District</label>
+                <select class="form-control" id="id_district" name="district" onchange="SelectDistrict(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_taluk">Taluk</label>
+                <select class="form-control" id="id_taluk" name="taluk" onchange="SelectTaluk(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_town">Town</label>
+                <select class="form-control" id="id_town" name="town" onchange="SelectTown(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_block">Block</label>
+                <select class="form-control" id="id_block" name="block" onchange="SelectBlock(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+
+
+
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_street">Street</label>
+                <select class="form-control" id="id_street" name="street" onchange="SelectStreet(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_ts_so_no">Ts No/ So No</label>
+                <!--                        <input class="form-control" type="text" id="id_tsno_sdno" name="tsno_sdno">-->
+                <select class="form-control" id="id_ts_so_no" name="ts_so_no" onchange="SelectSurveyNo(this)">
+                    <option selected="" value="">---------</option>
+                </select>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_classification">Classification</label>
+                <input class="form-control" id="id_classification" name="classification" readonly>
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_sub_classification">Sub Classfication</label>
+                <input class="form-control" id="id_sub_classification" name="sub_classification" readonly>
+            </div>
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_asset_type">Asset type</label>-->
+<!--                <input class="form-control" id="id_asset_type" name="asset_type">-->
+<!--            </div>-->
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_hectare">Hectare</label>
+                <input class="form-control" id="id_hectare" name="hectare">
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_area"> Ares</label>
+                <input class="form-control" id="id_area" name="area">
+            </div>
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_sqm">Sqm</label>
+                <input class="form-control" id="id_sqm" name="sqm">
+            </div>
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_buildings">Buildings</label>-->
+<!--                <input class="form-control" id="id_buildings" name="buildings">-->
+<!--            </div>-->
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_no_of_buildings">No of buildings</label>-->
+<!--                <input class="form-control" id="id_no_of_buildings" name="no_of_buildings">-->
+<!--            </div>-->
+
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_no_of_floors">No of floors</label>-->
+<!--                <input class="form-control" id="id_no_of_floors" name="no_of_floors">-->
+<!--            </div>-->
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_usage_of_build">Usage of build</label>-->
+<!--                <input class="form-control" id="id_usage_of_build" name="usage_of_build">-->
+<!--            </div>-->
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_occupier_name">Occupier name</label>-->
+<!--                <input class="form-control" id="id_occupier_name" name="occupier_name">-->
+<!--            </div>-->
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_enchorochment">Enchorochment Area</label>
+                <input class="form-control" id="id_enchorochment" name="enchorochment">
+            </div>
+
+<!--            <div class="mb-3 col-md-2">-->
+<!--                <label class="form-label" for="id_river_instruction">River Intrusion</label>-->
+<!--                <input class="form-control" id="id_river_instruction" name="river_instruction">-->
+<!--            </div>-->
+
+            <div class="mb-3 col-md-2">
+                <label class="form-label" for="id_remarks">Remarks</label>
+                <input class="form-control" id="id_remarks" name="remarks">
+            </div>
+
+
+
+
+        </div>
+      <input type="submit" class="btn btn-primary mt-3" value="Submit">
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+
+    function SelectRiver(element){
+    rivValue = element.value;
+     $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_river_value' %},
+                data: {'rivValue': rivValue},
+                success: function (data) {
+
+                 let subBassinValue = data['sub_bassin'];
+
+                subBassinValue_List = subBassinValue;
+                let subbassin = document.getElementById('id_ward');
+                subbassin.innerHTML = "";
+                subbassin.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < subBassinValue_List.length; i++) {
+                    subbassin.innerHTML += `<option value="${subBassinValue_List[i]}">${subBassinValue_List[i]}</option>`;
+                }
+             }
+         });
+
+  }
+
+
+  function SelectSubbasin(element){
+       sub_bassinVal = element.value
+
+          $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_subbassin_value' %},
+                data: {'sub_bassinVal': sub_bassinVal},
+                success: function (data) {
+
+                 let districtValue = data['district'];
+
+                districtValueData = districtValue;
+                let dist = document.getElementById('id_district');
+                dist.innerHTML = "";
+                dist.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < districtValueData.length; i++) {
+                    dist.innerHTML += `<option value="${districtValueData[i]}">${districtValueData[i]}</option>`;
+                }
+             }
+         });
+  }
+
+
+
+
+  function SelectDistrict(element){
+     dist = element.value
+
+        $.ajax({
+              type: 'GET',
+              url: {% url 'get_cm_dist_value' %},
+              data: {'dist': dist},
+              success: function (data) {
+
+               let talukValue = data['taluk'];
+
+              talukValueData = talukValue;
+              let taluk = document.getElementById('id_taluk');
+              taluk.innerHTML = "";
+              taluk.innerHTML = `<option value="" selected="">---------</option>`;
+
+              for (let i = 0; i < talukValueData.length; i++) {
+                  taluk.innerHTML += `<option value="${talukValueData[i]}">${talukValueData[i]}</option>`;
+              }
+           }
+       });
+  }
+
+
+
+  function SelectTaluk(element){
+   taluk = element.value
+
+      $.ajax({
+            type: 'GET',
+            url: {% url 'get_cm_taluk_value' %},
+            data: {'taluk': taluk},
+            success: function (data) {
+
+            let townValue = data['town'];
+
+            townValueData = townValue;
+            let town = document.getElementById('id_town');
+            town.innerHTML = "";
+            town.innerHTML = `<option value="" selected="">---------</option>`;
+
+            for (let i = 0; i < townValueData.length; i++) {
+                town.innerHTML += `<option value="${townValueData[i]}">${townValueData[i]}</option>`;
+            }
+         }
+     });
+}
+
+
+
+
+  function SelectTown(element){
+   town = element.value
+
+      $.ajax({
+            type: 'GET',
+            url: {% url 'get_CEntry_town_value' %},
+            data: {'town': town},
+            success: function (data) {
+
+           $('#id_block').val(data.block);
+           $('#id_revenue_ward_no').val(data.revenue_ward_no);
+
+            streetList = data.street_list_data;
+
+            console.log(streetList);
+
+            let street = document.getElementById('id_street');
+            street.innerHTML = "";
+            street.innerHTML = `<option value="" selected="">---------</option>`;
+
+            for (let i = 0; i < streetList.length; i++) {
+                street.innerHTML += `<option value="${streetList[i]}">${streetList[i]}</option>`;
+            }
+
+
+
+         }
+     });
+}
+
+
+
+ function SelectStreet(element) {
+            let streetVal = element.value;
+            let soNo = null;
+
+              $.ajax({
+                type: 'GET',
+                url: {% url 'get_street_value' %},
+                data: {'streetVal': streetVal},
+                success: function (data) {
+                    soNo_list = data.soNo_list;
+
+                    let soNo = document.getElementById('id_ts_so_no');
+                    soNo.innerHTML = "";
+                    soNo.innerHTML = `<option value="" selected="">---------</option>`;
+
+                    for (let i = 0; i < soNo_list.length; i++) {
+                        soNo.innerHTML += `<option value="${soNo_list[i]}">${soNo_list[i]}</option>`;
+                    }
+
+                }
+            });
+        }
+
+
+        function SelectSurveyNo(element){
+            surveyNo = element.value;
+            console.log(surveyNo);
+
+            $.ajax({
+                type: 'GET',
+                url: {% url 'get_En_survey_no' %},
+                data: {'surveyNo': surveyNo},
+                success: function (data) {
+
+                  $('#id_classification').val(data.classification);
+                  $('#id_sub_classification').val(data.sub_classification);
+
+                }
+            });
+
+        }
+
+        function SelectTown(element){
+town = element.value
+
+  $.ajax({
+        type: 'GET',
+        url: {% url 'get_CEntry_town_value' %},
+        data: {'town': town},
+        success: function (data) {
+
+        blockList = data.block_list;
+
+        console.log(blockList);
+
+        let block = document.getElementById('id_block');
+        block.innerHTML = "";
+        block.innerHTML = `<option value="" selected="">---------</option>`;
+
+        for (let i = 0; i < blockList.length; i++) {
+            block.innerHTML += `<option value="${blockList[i]}">${blockList[i]}</option>`;
+        }
+
+
+
+     }
+ });
+}
+
+function SelectBlock(element){
+block = element.value;
+town = document.getElementById('id_town').value;
+
+  $.ajax({
+        type: 'GET',
+        url: {% url 'get_CEntry_block_value' %},
+        data: {'block': block, 'town': town},
+        success: function(data) {
+
+        streetList = data.street;
+
+        console.log(streetList);
+
+        let street = document.getElementById('id_street');
+        street.innerHTML = "";
+        street.innerHTML = `<option value="" selected="">---------</option>`;
+
+        for (let i = 0; i < streetList.length; i++) {
+            street.innerHTML += `<option value="${streetList[i]}">${streetList[i]}</option>`;
+        }
+
+
+
+     }
+ });
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<h4 class="fw-bold py-3 mb-4">Taluk</h4>
+
+
+<a href="{% url 'taluk-form' %}" class="btn btn-primary">
+    <span class="tf-icons bx bx-list-plus"></span>&nbsp; Add New
+</a>
+
+
+<div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Taluk Name</th>
+                    <th>Ward Name</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.taluk_name}}</td>
+                        <td>{{field.ward_name}}</td>
+                        <td>
+                            <a href="{% url 'edit-taluk-form' field.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            <a href="{% url 'delete-taluk' field.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}
+

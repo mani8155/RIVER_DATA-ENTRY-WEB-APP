@@ -1,0 +1,355 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Enchrochments Edit </h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form id="temp-form" method="post">
+      {% csrf_token %}
+      <div class="row">
+        {% for field in cadastral_deviation_form %}
+        <div class="mb-3 col-md-2">
+          <label class="form-label">{{field.label}}</label>
+          {{field}}
+        </div>
+        {% endfor %}
+
+
+
+        {% for remain in remaining_cadastral_data %}
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Asset Type</label>
+          <input class="form-control" id="id_asset_type" name="asset_type" value="{{remain.asset_type}}">
+        </div>
+
+             <div class="mb-3 col-md-2">
+          <label class="form-label">Hectare</label>
+          <input class="form-control" id="id_hectare" name="hectare" value="{{remain.hectare}}">
+        </div>
+
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">Area</label>
+          <input class="form-control" id="id_area" name="area" value="{{remain.area}}">
+        </div>
+
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">Sqm</label>
+          <input class="form-control" id="id_sqm" name="sqm" value="{{remain.sqm}}">
+        </div>
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">Buildings (Yes/No) </label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{remain.buildings}}">
+        </div>
+
+<!--          <div class="mb-3 col-md-2">-->
+<!--              <label class="form-label">Buildings (Yes/No) </label>-->
+<!--              <select class="form-control" id="id_buildings" name="buildings">-->
+<!--              <option disabled selected>-&#45;&#45;&#45;&#45;select&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--              <option value="Yes">Yes</option>-->
+<!--              <option value="No">No</option>-->
+
+<!--          </select>-->
+<!--          </div>-->
+
+
+
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">No of Buildings</label>
+          <input class="form-control" id="id_no_of_buildings" name="no_of_buildings" value="{{remain.no_of_buildings}}">
+        </div>
+
+
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">No of Floors</label>
+          <input class="form-control" id="id_no_of_floors" name="no_of_floors" value="{{remain.no_of_floors}}">
+        </div>
+
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">Usage of Build</label>
+          <input class="form-control" id="id_usage_of_build" name="usage_of_build" value="{{remain.usage_of_build}}">
+        </div>
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">Occupier Name</label>
+          <input class="form-control" id="id_occupier_name" name="occupier_name" value="{{remain.occupier_name}}">
+        </div>
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">Enchorochment</label>
+          <input class="form-control" id="id_enchorochment" name="enchorochment" value="{{remain.enchorochment}}">
+        </div>
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">River Instruction</label>
+          <input class="form-control" id="id_river_instruction" name="river_instruction" value="{{remain.river_instruction}}">
+        </div>
+
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">Remarks</label>
+          <input class="form-control" id="id_remarks" name="remarks" value="{{remain.remarks}}">
+        </div>
+
+        {% endfor %}
+
+
+      </div>
+
+
+
+      <h5 class="mt-4">Add Deviation</h5>
+      <button class="btn btn-sm btn-outline-info" id="addFieldsButton"  type="button"><i class='bx bxs-add-to-queue'></i> Add Row</button>
+      <table>
+        <thead align="center">
+          <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Elevation</th>
+            <th>Point type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        {% for child in child_table %}
+          <tr id="tableRow-1">
+              <td><input type="text" name="latitude" maxlength="200" class="form-control" id="id_latitude" value="{{child.latitude}}"></td>
+              <td><input type="text" name="longitude" maxlength="200" class="form-control" id="id_longitude" value="{{child.longitude}}"></td>
+              <td><input type="text" name="elevation" maxlength="200" class="form-control" id="id_elevation" value="{{child.elevation}}"></td>
+<!--              <td><input type="text" name="point_type" maxlength="200" class="form-control" id="id_point_type"></td>-->
+
+            <td>
+              <select class="form-control" id="id_point_type" name="point_type">
+                {% if child %}
+                 <option selected value="{{child.point_type}}">{{child.point_type}}</option>
+                {% else %}
+
+                <option disabled selected>-----select------</option>
+                {% for obj in obj_value %}
+                <option value="{{obj}}">{{obj}}</option>
+                {% endfor %}
+
+                {% endif %}
+              </select>
+            </td>
+
+
+            <td><button class="btn btn-danger" type="button" onclick="deleteRow(this)"><i class="bx bxs-trash"></i></button></td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+      <input type="submit" class="btn btn-primary mt-3" value="Submit">
+    </form>
+  </div>
+</div>
+
+
+<script>
+  let totalRows = 1;
+  let tableBody = document.getElementById('tableBody');
+  const addFieldsButton = document.getElementById('addFieldsButton');
+
+  let rows = `
+  <tr id="tableRow-1">
+    <td><input type="text" name="latitude" maxlength="200" class="form-control" id="id_latitude"></td>
+    <td><input type="text" name="longitude" maxlength="200" class="form-control" id="id_longitude"></td>
+    <td><input type="text" name="elevation" maxlength="200" class="form-control" id="id_elevation"></td>
+   <td>
+      <select class="form-control" id="id_point_type" name="point_type">
+       <option disabled selected>-----select------</option>
+        {% for obj in obj_value %}
+        <option value="{{obj}}">{{obj}}</option>
+        {% endfor %}
+      </select>
+   </td>
+
+    <td><button class="btn btn-danger" type="button" onclick="deleteRow(this)"><i class="bx bxs-trash"></i></button></td>
+  </tr>
+  `
+
+
+  function getDeviations() {
+    const parentElement = document.getElementById('tableBody');
+    const children = parentElement.children;
+    let deviations = []
+
+    for (let i=0; i<children.length; i++){
+      let tRow = children[i];
+      let latitude = tRow.querySelector('#id_latitude').value;
+      let longitude = tRow.querySelector('#id_longitude').value;
+      let elevation = tRow.querySelector('#id_elevation').value;
+      let point_type = tRow.querySelector('#id_point_type').value;
+      deviations.push({
+        latitude: latitude,
+        longitude: longitude,
+        elevation: elevation,
+        point_type: point_type
+      })
+    }
+
+
+    return deviations;
+  }
+
+  addFieldsButton.addEventListener('click', function () {
+    deviations = getDeviations();
+    tableBody.innerHTML = "";
+    for (let i=0; i<deviations.length; i++) {
+      let row = `
+      <tr id="tableRow-1">
+        <td><input type="text" name="latitude" maxlength="200" class="form-control" id="id_latitude" value="${deviations[i].latitude}"></td>
+        <td><input type="text" name="longitude" maxlength="200" class="form-control" id="id_longitude" value="${deviations[i].longitude}"></td>
+        <td><input type="text" name="elevation" maxlength="200" class="form-control" id="id_elevation" value="${deviations[i].elevation}"></td>
+
+        <td>
+            <select class="form-control" id="id_point_type" name="point_type" value="${deviations[i].point_type}" selected>
+
+              <option value="${deviations[i].point_type}">${deviations[i].point_type}</option>
+
+            </select>
+        </td>
+
+        <td><button class="btn btn-danger" type="button" onclick="deleteRow(this)"><i class="bx bxs-trash"></i></button></td>
+      </tr>
+      `
+      tableBody.innerHTML += row;
+    }
+    
+    tableBody.innerHTML += rows
+  });
+
+  function deleteRow(element) {
+    element.parentNode.parentNode.remove();
+  }
+
+  $('form#temp-form').submit(function (e) {
+    e.preventDefault();
+
+    let cadastral = {
+      cadastral_master_id_id: document.getElementById('id_cadastral_master_id').value,
+      unique_id: document.getElementById('id_unique_id').value,
+      river_id: document.getElementById('id_river_id').value,
+      cadastral_pillar_id: document.getElementById('id_cadastral_pillar').value,
+      buildings: document.getElementById('id_buildings').value,
+      street: document.getElementById('id_street').value,
+      ward: document.getElementById('id_ward').value,
+
+
+      asset_type: document.getElementById('id_asset_type').value,
+      district: document.getElementById('id_district').value,
+      taluk: document.getElementById('id_taluk').value,
+      town: document.getElementById('id_town').value,
+      revenue_ward_no: document.getElementById('id_revenue_ward_no').value,
+      ts_so_no: document.getElementById('id_ts_so_no').value,
+      classification: document.getElementById('id_classification').value,
+      sub_classification: document.getElementById('id_sub_classification').value,
+      no_of_buildings: document.getElementById('id_no_of_buildings').value,
+      no_of_floors: document.getElementById('id_no_of_floors').value,
+      usage_of_build: document.getElementById('id_usage_of_build').value,
+      occupier_name: document.getElementById('id_occupier_name').value,
+      enchorochment: document.getElementById('id_enchorochment').value,
+      river_instruction: document.getElementById('id_river_instruction').value,
+      hectare: document.getElementById('id_hectare').value,
+      area: document.getElementById('id_area').value,
+      sqm: document.getElementById('id_sqm').value,
+      remarks: document.getElementById('id_remarks').value,
+      deviations: getDeviations()
+    }
+
+    console.log(cadastral);
+
+    let output = JSON.stringify(cadastral);
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'edit_cadastral_deviation_json' %}",
+      data: {
+          csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          output: output,
+          id: {{id}},
+      },
+      success: function (response) {
+          location = "{% url 'deviation-list' %}"
+      },
+      error: function (response) {
+          console.log(response);
+          console.log("Unable to load data");
+      }
+  });
+    
+  });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $('#id_cadastral_pillar').change(function () {
+            var cadastralPillar = $(this).val();
+            if (cadastralPillar) {
+                $.ajax({
+                    type: 'GET',
+                    url: {% url 'get_cadastral_entry' %},
+                    data: {'cadastral_pillar': cadastralPillar},
+                    success: function (data) {
+                        $('#id_revenue_ward_no').val(data.revenue_ward_no);
+                        $('#id_taluk').val(data.taluk);
+                        $('#id_district').val(data.district);
+                        $('#id_town').val(data.town);
+                        $('#id_street').val(data.street);
+                        $('#id_ward').val(data.ward);
+                        $('#id_block_no').val(data.block_no);
+                        $('#id_ts_so_no').val(data.tsno_sdno);
+                        $('#id_classification').val(data.classify);
+                        $('#id_sub_classification').val(data.sub_classify);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#id_cadastral_master_id').change(function () {
+            var cadastralEntry = $(this).val();
+            if (cadastralEntry) {
+                $.ajax({
+                    type: 'GET',
+                    url: {% url 'block-no' %},
+                    data: {'cadastral_master_id': cadastralEntry},
+                    success: function (data) {
+
+                        $('#id_river_id').val(data.river_id);
+
+                        let block_no_list = data['block_no_list']
+
+
+
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+{% endblock content %}

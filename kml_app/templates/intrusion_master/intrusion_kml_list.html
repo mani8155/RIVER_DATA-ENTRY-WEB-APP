@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load base_temp_tags %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+<div class="mt-2">
+
+       <div class="row">
+
+           <div class="col"><h4 class="fw-bold py-3 mb-4">Intrusion KML Files</h4></div>
+
+       </div>
+
+</div>
+
+
+<div class="card ">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table py-3" id="example">
+            <thead>
+                <tr>
+                    <th>River Name</th>
+                    <th>File</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.river_name}}</td>
+                        <td><b>{{field.kml_file.url | file_name_align}}</b></td>
+
+                        <td>
+                            <a href="{% url 'intrusion_kml_edit' field.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            <a href="{% url 'intrusion_kml_delete' field.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+

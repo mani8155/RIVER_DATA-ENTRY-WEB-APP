@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h4>Intrusion Form</h4>
+<div class="card mb-4">
+  <div class="card-body">
+      <div class="row">
+
+        <div class="mb-3 col-md-2">
+          <label class="form-label">River Name</label>
+          <input class="form-control" id="id_asset_type" name="asset_type" value="{{parent.cadastral_master_id}}" disabled>
+        </div>
+
+             <div class="mb-3 col-md-2">
+          <label class="form-label">Unique id</label>
+          <input class="form-control" id="id_hectare" name="hectare" value="{{parent.unique_id}}" disabled>
+        </div>
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label">SUB BASSIN</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.ward}}" disabled>
+        </div>
+
+
+           <div class="mb-3 col-md-2">
+              <label class="form-label">Zone</label>
+              <input class="form-control" id="id_zone" name="zone" value="{{parent.zone}}" disabled>
+          </div>
+
+            <div class="mb-3 col-md-2">
+              <label class="form-label">Ward</label>
+              <input class="form-control" id="id_ward" name="ward" value="{{parent.ward2}}" disabled>
+          </div>
+
+
+             <div class="mb-3 col-md-2">
+          <label class="form-label">District</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.district}}" disabled>
+        </div>
+
+
+
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Taluk</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.taluk}}" disabled>
+        </div>
+
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Town</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.town}}" disabled>
+        </div>
+
+
+
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Block</label>
+          <input class="form-control" id="id_block" name="buildings" value="{{parent.block}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label"> Town Survey No </label>
+          <input class="form-control" id="town_survey_no" name="town_survey_no" value="{{parent.town_survey_no}}" disabled>
+        </div>
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label">Village Name</label>
+          <input class="form-control" id="village_name" name="village_name" value="{{parent.village_name}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Survey No</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.ts_so_no}}" disabled>
+        </div>
+
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label">Suv Division No</label>
+          <input class="form-control" id="sub_division_no" name="sub_division_no" value="{{parent.sub_division_no}}" disabled>
+        </div>
+
+
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label">Street</label>
+          <input class="form-control" id="id_sqm" name="sqm" value="{{parent.street}}" disabled>
+        </div>
+
+
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">Ts so no</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.ts_so_no}}" disabled>-->
+<!--        </div>-->
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Classification</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.classification}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Sub classification</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.sub_classification}}" disabled>
+        </div>
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">Asset type</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.asset_type}}" disabled>-->
+<!--        </div>-->
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Hectare</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.hectare}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Ares</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.area}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Sqm</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.sqm}}" disabled>
+        </div>
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">Buildings</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.buildings}}" disabled>-->
+<!--        </div>-->
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">No of buildings</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.no_of_buildings}}" disabled>-->
+<!--        </div>-->
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">No of floors</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.no_of_floors}}" disabled>-->
+<!--        </div>-->
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">Usage of build</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.usage_of_build}}" disabled>-->
+<!--        </div>-->
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">Occupier name</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.occupier_name}}" disabled>-->
+<!--        </div>-->
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Enchorochment</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.enchorochment}}" disabled>
+        </div>
+
+<!--              <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">River instruction</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.river_instruction}}" disabled>-->
+<!--        </div>-->
+
+
+              <div class="mb-3 col-md-2">
+          <label class="form-label">Remarks</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.remarks}}" disabled>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+  <div style="text-align: right">
+          <a class="btn btn-sm btn-primary" href="{% url 'edit_parent_intrusion'  parent.id %}"><i class='bx bxs-edit'></i></a>
+      </div>
+  </div>
+</div>
+
+
+
+
+<div class="card mb-4">
+  <div class="card-body">
+
+
+      <div class="demo-inline-spacing">
+          <div class="btn-group" id="dropdown-icon-demo">
+            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-menu me-1"></i>Select</button>
+            <ul class="dropdown-menu" style="">
+              <li><a class="dropdown-item d-flex align-items-center" data-bs-target="#largeModal" data-bs-toggle="modal"><i class="bx bx-chevron-right scaleX-n1-rtl"></i>Boundary</a></li>
+              <li><a class="dropdown-item d-flex align-items-center" data-bs-target="#largeModal2" data-bs-toggle="modal"><i class="bx bx-chevron-right scaleX-n1-rtl"></i>Intrusion</a></li>
+
+            </ul>
+          </div>
+        </div>
+
+
+<hr>
+
+
+
+      <div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table table-sm">
+            <thead class="table-info">
+                <tr>
+                    <th>Point Id</th>
+                    <th>EASTING</th>
+                    <th>NORTHING</th>
+                    <th>Elevation</th>
+<!--                    <th>Point type</th>-->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{% if field.point_id %}{{field.point_id}}{% else %}{{ field.point_id_2 }}{% endif %}</td>
+                        <td>{{field.latitude|floatformat:3}}</td>
+                        <td>{{field.longitude|floatformat:3}}</td>
+                        <td>{{field.elevation}}</td>
+<!--                        <td>{{field.point_type}}</td>-->
+                        <td>
+                            {% if field.point_id %}
+                            <a href="{% url 'child_intrusion_edit' field.id parent.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            {% else %}
+                            <a href="{% url 'child_intrusion_edit_2' field.id parent.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            {% endif %}
+
+                            <a href="{% url 'delete_child_intrusion' field.id parent.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+
+
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="card-body">
+  <div class="row gy-3">
+    <!-- Modal Sizes -->
+
+
+      <div aria-hidden="true" class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel3">{{parent.cadastral_master_id}}</h5>
+              <button
+                      aria-label="Close"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    {% for field in form %}
+                    <div class="mb-2 col-md-6">
+                      <label class="form-label">{{field.label}}</label>
+                      {{field}}
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                      Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+       <div aria-hidden="true" class="modal fade" id="largeModal2" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel2">{{parent.cadastral_master_id}}</h5>
+              <button
+                      aria-label="Close"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+
+                <form method="post" action="{% url 'child_intrusion_form2' parent.id %}">
+                  {% csrf_token %}
+                  <div class="row">
+                    {% for field in form2 %}
+                    <div class="mb-2 col-md-6">
+                      <label class="form-label">{{field.label}}</label>
+                      {{field}}
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                      Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+      <div class="card-body">
+  <div class="row gy-3">
+    <!-- Modal Sizes -->
+
+  </div>
+</div>
+
+  <a href="{% url 'intrusion_exit_form' %}" class="btn btn-sm btn-dark" ><i class='bx bxs-exit'></i>Exit</a>
+
+  </div></div>
+
+
+
+
+
+<script>
+    function PointId(element){
+    point_id = element.value;
+
+
+    $.ajax({
+        type: 'GET',
+        url: {% url 'get_point_id' %},
+        data: {'point_id': point_id},
+        success: function (data) {
+            $('#id_elevation').val(data.elevation);
+            $('#id_latitude').val(data.latitude);
+            $('#id_longitude').val(data.longitude);
+
+        }
+    });
+
+}
+
+
+
+
+</script>
+
+
+{% endblock content %}

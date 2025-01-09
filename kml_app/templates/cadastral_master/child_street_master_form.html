@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h4>Cadastral Form</h4>
+<div class="card mb-4">
+  <div class="card-body">
+      <div class="row">
+
+        <div class="mb-3 col-md-2">
+          <label class="form-label">Unique id</label>
+          <input class="form-control" id="id_asset_type" name="asset_type" value="{{parent.unique_id}}" disabled>
+        </div>
+
+             <div class="mb-3 col-md-2">
+          <label class="form-label">River name</label>
+          <input class="form-control" id="id_hectare" name="hectare" value="{{parent.river_name}}" disabled>
+        </div>
+
+          <div class="mb-3 col-md-2">
+              <label class="form-label">Sub Bassin</label>
+              <input class="form-control" id="id_subssin" name="sqm" value="{{parent.sub_bassin}}" disabled>
+          </div>
+
+           <div class="mb-3 col-md-2">
+              <label class="form-label">Zone</label>
+              <input class="form-control" id="id_zone" name="zone" value="{{parent.zone}}" disabled>
+          </div>
+
+            <div class="mb-3 col-md-2">
+              <label class="form-label">Ward</label>
+              <input class="form-control" id="id_ward" name="ward" value="{{parent.ward}}" disabled>
+          </div>
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label"> District</label>
+          <input class="form-control" id="id_sqm" name="sqm" value="{{parent.district}}" disabled>
+        </div>
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">Taluk</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.taluk}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label"> Town</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.town}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">Block</label>
+          <input class="form-control" id="id_building" name="buildings" value="{{parent.block}}" disabled>
+        </div>
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label"> Town Survey No </label>
+          <input class="form-control" id="town_survey_no" name="town_survey_no" value="{{parent.town_survey_no}}" disabled>
+        </div>
+
+            <div class="mb-3 col-md-2">
+          <label class="form-label">Village Name</label>
+          <input class="form-control" id="village_name" name="village_name" value="{{parent.village_name}}" disabled>
+        </div>
+
+
+              <div class="mb-3 col-md-2">
+              <label class="form-label">Survey No</label>
+              <input class="form-control" id="id_survey_no" name="sqm" value="{{parent.survey_no}}" disabled>
+          </div>
+
+               <div class="mb-3 col-md-2">
+          <label class="form-label">Suv Division No</label>
+          <input class="form-control" id="sub_division_no" name="sub_division_no" value="{{parent.sub_division_no}}" disabled>
+        </div>
+
+
+
+      </div>
+
+  <div style="text-align: right">
+          <a class="btn btn-sm btn-primary" href="{% url 'edit_parent_new_cm' parent.id %}"><i class='bx bxs-edit'></i></a>
+      </div>
+  </div>
+</div>
+
+
+<div class="card mb-4">
+  <div class="card-body">
+
+       <h6>Add Row</h6>
+      <button class="btn btn-sm btn-outline-info" data-bs-target="#largeModal" data-bs-toggle="modal" type="button"><i
+              class='bx bxs-add-to-queue'></i>
+      </button>
+
+<hr>
+
+      <div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table table-sm">
+            <thead class="table-info">
+                <tr>
+                    <th>EASTING</th>
+                    <th>NORTHING</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.lat}}</td>
+                        <td>{{field.long}}</td>
+                        <td>
+                            <a href="{% url 'child_new_cm_edit' field.id parent.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            <a href="{% url 'delete_new_cm_child' field.id parent.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+
+
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="card-body">
+  <div class="row gy-3">
+    <!-- Modal Sizes -->
+
+
+      <div aria-hidden="true" class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel3">{{parent.cadastral_master_id}}</h5>
+              <button
+                      aria-label="Close"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    {% for field in form %}
+                    <div class="mb-2 col-md-6">
+                      <label class="form-label">{{field.label}}</label>
+                      {{field}}
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                      Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+  <a href="{% url 'exit_new_cm' %}" class="btn btn-sm btn-dark" ><i class='bx bxs-exit'></i>Exit</a>
+
+  </div></div>
+
+{% endblock content %}

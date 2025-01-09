@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div>
+  <div class="row">
+
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        {% for field in form %}
+        <div class="mb-2 col-md-6">
+          <label class="form-label">{{field.label}}</label>
+          {{field}}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+          Close
+        </button>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+<h4>Cadstral Line Form</h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        {% for field in form %}
+        <div class="mb-3 col-md-6">
+          <label class="form-label">{{field.label}}</label>
+          {{field}}
+        </div>
+        {% endfor %}
+
+
+        <div class="mb-3 col-md-6">
+          <label class="form-label" for="id_sub_bassin">Sub Bassin</label>
+          <select class="form-control" id="id_sub_bassin" name="sub_bassin" onchange="SelectSubbasin(this)">
+            <option selected="" value="">---------</option>
+          </select>
+        </div>
+
+             <div class="mb-3 col-md-6">
+          <label class="form-label" for="id_district">District</label>
+          <select class="form-control" id="id_district" name="district" onchange="SelectDistrict(this)">
+            <option selected="" value="">---------</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label class="form-label" for="id_taluk">Taluk</label>
+          <select class="form-control" id="id_taluk" name="taluk" onchange="SelectTaluk(this)">
+            <option selected="" value="">---------</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label class="form-label" for="id_town">Town</label>
+          <select class="form-control" id="id_town" name="town" onchange="SelectTown(this)">
+            <option selected="" value="">---------</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label class="form-label" for="id_block">Block</label>
+          <input class="form-control" id="id_block" maxlength="200" name="block" type="text"></div>
+
+          <div class="mb-3 col-md-6">
+                <label class="form-label" for="id_survey_no">Survey No</label>
+                <input class="form-control" id="id_survey_no" name="survey_no">
+              </div>
+
+          <div class="mb-3 col-md-6">
+
+ <input type="submit" class="btn btn-primary" value="Submit">
+          </div>
+
+
+
+
+    </form>
+  </div>
+</div>
+
+
+
+<script>
+
+  function SelectRiver(element){
+    rivValue = element.value;
+     $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_river_value' %},
+                data: {'rivValue': rivValue},
+                success: function (data) {
+
+                 let subBassinValue = data['sub_bassin'];
+
+                subBassinValue_List = subBassinValue;
+                let subbassin = document.getElementById('id_sub_bassin');
+                subbassin.innerHTML = "";
+                subbassin.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < subBassinValue_List.length; i++) {
+                    subbassin.innerHTML += `<option value="${subBassinValue_List[i]}">${subBassinValue_List[i]}</option>`;
+                }
+             }
+         });
+
+  }
+
+
+  function SelectSubbasin(element){
+       sub_bassinVal = element.value
+
+          $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_subbassin_value' %},
+                data: {'sub_bassinVal': sub_bassinVal},
+                success: function (data) {
+
+                 let districtValue = data['district'];
+
+                districtValueData = districtValue;
+                let dist = document.getElementById('id_district');
+                dist.innerHTML = "";
+                dist.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < districtValueData.length; i++) {
+                    dist.innerHTML += `<option value="${districtValueData[i]}">${districtValueData[i]}</option>`;
+                }
+             }
+         });
+  }
+
+
+
+
+  function SelectDistrict(element){
+     dist = element.value
+
+        $.ajax({
+              type: 'GET',
+              url: {% url 'get_cm_dist_value' %},
+              data: {'dist': dist},
+              success: function (data) {
+
+               let talukValue = data['taluk'];
+
+              talukValueData = talukValue;
+              let taluk = document.getElementById('id_taluk');
+              taluk.innerHTML = "";
+              taluk.innerHTML = `<option value="" selected="">---------</option>`;
+
+              for (let i = 0; i < talukValueData.length; i++) {
+                  taluk.innerHTML += `<option value="${talukValueData[i]}">${talukValueData[i]}</option>`;
+              }
+           }
+       });
+  }
+
+
+
+  function SelectTaluk(element){
+   taluk = element.value
+
+      $.ajax({
+            type: 'GET',
+            url: {% url 'get_cm_taluk_value' %},
+            data: {'taluk': taluk},
+            success: function (data) {
+
+            let townValue = data['town'];
+
+            townValueData = townValue;
+            let town = document.getElementById('id_town');
+            town.innerHTML = "";
+            town.innerHTML = `<option value="" selected="">---------</option>`;
+
+            for (let i = 0; i < townValueData.length; i++) {
+                town.innerHTML += `<option value="${townValueData[i]}">${townValueData[i]}</option>`;
+            }
+         }
+     });
+}
+
+
+
+
+  function SelectTown(element){
+   town = element.value
+
+      $.ajax({
+            type: 'GET',
+            url: {% url 'get_cm_town_value' %},
+            data: {'town': town},
+            success: function (data) {
+
+           $('#id_block').val(data.block);
+         }
+     });
+}
+
+</script>
+
+
+
+{% endblock content %}

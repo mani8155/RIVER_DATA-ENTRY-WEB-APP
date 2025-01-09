@@ -1,0 +1,505 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <h4 class="fw-bold py-3 mb-4">Edit Boundary Pillar</h4>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form %}
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_sub_bassin">Sub Bassin</label>
+                        <select class="form-control" id="id_sub_bassin" name="sub_bassin"
+                                onchange="SelectSubbasin(this)">
+                          {% if edit_data %}
+                            <option selected="" value="{{edit_data.sub_bassin}}">{{edit_data.sub_bassin}}</option>
+                          {% else %}
+                            <option selected="" value="">---------</option>
+                          {% endif %}
+                        </select>
+                    </div>
+
+                     <div class="mb-3 col-md-3">
+              <label class="form-label">Zone</label>
+              <input class="form-control" id="id_zone" name="zone" value="{{edit_data.zone}}" disabled>
+          </div>
+
+            <div class="mb-3 col-md-3">
+              <label class="form-label">Ward</label>
+              <input class="form-control" id="id_ward" name="ward" value="{{edit_data.ward}}" disabled>
+          </div>
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_district">District</label>
+                        <select class="form-control" id="id_district" name="district" onchange="SelectDistrict(this)">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.district}}">{{edit_data.district}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_taluk">Taluk</label>
+                        <select class="form-control" id="id_taluk" name="taluk" onchange="SelectTaluk(this)">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.taluk}}">{{edit_data.taluk}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_town">Town</label>
+                        <select class="form-control" id="id_town" name="town" onchange="SelectTown(this)">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.town}}">{{edit_data.town}}</option>
+                           {% else %}
+                            <option selected="" value="{{edit_data.sub_bassin}}">{{edit_data.sub_bassin}}</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+
+                     <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_block">Block</label>
+                         <select class="form-control" id="id_block" name="block" onchange="SelectBlock(this)">
+                              {% if edit_data %}
+                              <option selected="" value="{{edit_data.block}}">{{edit_data.block}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_street">Street</label>
+                        <select class="form-control" id="id_street" name="street" onchange="SelectStreet(this)">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.street}}">{{edit_data.street}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_tsno_sdno">Survey No</label>
+                        <select class="form-control" id="id_tsno_sdno" name="tsno_sdno" onchange="SelectSurveyNo(this)">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.tsno_sdno}}">{{edit_data.tsno_sdno}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label">Village Name</label>
+                        <input class="form-control" id="village_name" name="village_name"
+                               value="{{edit_data.village_name}}" disabled>
+                    </div>
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label">Town Survey No</label>
+                        <input class="form-control" id="id_survey_no" name="sqm" value="{{edit_data.town_survey_no}}"
+                               disabled>
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label">Suv Division No</label>
+                        <input class="form-control" id="sub_division_no" name="sub_division_no"
+                               value="{{edit_data.sub_division_no}}" disabled>
+                    </div>
+
+                      <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_latitude">EASTING </label>
+                       <select class="form-control" id="id_latitude" name="latitude" onchange="SelectLatitude(this)">
+                             {% if edit_data %}
+                            <option selected="" value="{{edit_data.latitude}}">{{edit_data.latitude}}</option>
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                           {% endif %}
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_longitude">NORTHING</label>
+                       {% if edit_data %}
+                        <input class="form-control" id="id_longitude" value="{{edit_data.longitude}}" name="longitude" readonly>
+                       {% else %}
+                        <input class="form-control" id="id_longitude" name="longitude" readonly>
+                       {% endif %}
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_classify">Classification</label>
+                       {% if edit_data %}
+                        <input class="form-control" id="id_classify" value="{{edit_data.classify}}" name="classify" readonly>
+                       {% else %}
+                        <input class="form-control" id="id_classify" name="classify" readonly>
+                       {% endif %}
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_sub_classify">Sub Classfication</label>
+                       {% if edit_data %}
+                        <input class="form-control" id="id_sub_classify" value="{{edit_data.sub_classify}}" name="sub_classify" readonly>
+                       {% else %}
+                        <input class="form-control" id="id_sub_classify" name="sub_classify" readonly>
+                       {% endif %}
+                    </div>
+
+
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_elevation">Elevation</label>
+                       {% if edit_data %}
+                        <input class="form-control" id="id_elevation" value="{{edit_data.elevation}}" name="elevation">
+                       {% else %}
+                        <input class="form-control" id="id_elevation" name="elevation">
+                       {% endif %}
+                    </div>
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_type_of_pillar">Type of Pillar</label>
+                        <select class="form-control" id="id_type_of_pillar" name="type_of_pillar">
+                           {% if edit_data %}
+                            <option selected="" value="{{edit_data.type_of_pillar}}">{{edit_data.type_of_pillar}}</option>
+
+                           {% else %}
+                            <option selected="" value="">---------</option>
+                            {% for obj in type_of_pillar %}
+                            <option value="{{ obj }}">{{ obj }}</option>
+                            {% endfor %}
+
+                           {% endif %}
+                        </select>
+                    </div>
+
+
+
+                    <div class="mb-3 col-md-3">
+                        <label class="form-label" for="id_remarks">Remarks </label>
+                       {% if edit_data %}
+                        <input class="form-control" id="id_remarks" value="{{edit_data.remarks}}" name="remarks">
+                       {% else %}
+                        <input class="form-control" id="id_remarks" name="remarks">
+                       {% endif %}
+                    </div>
+                </div>
+
+                <input class="btn btn-primary mt-3" type="submit" value="Submit">
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div aria-hidden="true" class="modal fade" id="fieldUploadModal" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">{{ field.river_name }}</h5>
+                    <button
+                            aria-label="Close"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            type="button"
+                    ></button>
+                </div>
+                <form method="post" enctype="multipart/form-data" action="">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">File Upload</label>
+                            <input accept="" class="form-control" id="id_file_upload" name="file_upload"
+                                   type="file">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                            Close
+                        </button>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add this script to your template -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+
+
+        function SelectStreet(element) {
+            let streetVal = element.value;
+            let soNo = null;
+
+              $.ajax({
+                type: 'GET',
+                url: {% url 'get_street_value' %},
+                data: {'streetVal': streetVal},
+                success: function (data) {
+                    soNo_list = data.soNo_list;
+
+                    let soNo = document.getElementById('id_tsno_sdno');
+                    soNo.innerHTML = "";
+                    soNo.innerHTML = `<option value="" selected="">---------</option>`;
+
+                    for (let i = 0; i < soNo_list.length; i++) {
+                        soNo.innerHTML += `<option value="${soNo_list[i]}">${soNo_list[i]}</option>`;
+                    }
+
+                }
+            });
+        }
+
+
+        function SelectSurveyNo(element){
+            surveyNo = element.value;
+            console.log(surveyNo);
+
+            $.ajax({
+                type: 'GET',
+                url: {% url 'get_survey_no' %},
+                data: {'surveyNo': surveyNo},
+                success: function (data) {
+
+                    latitude_list = data.latitude;
+
+                    let lat = document.getElementById('id_latitude');
+                    lat.innerHTML = "";
+                    lat.innerHTML = `<option value="" selected="">---------</option>`;
+
+                    for (let i = 0; i < latitude_list.length; i++) {
+                        lat.innerHTML += `<option value="${latitude_list[i]}">${latitude_list[i]}</option>`;
+                    }
+
+                }
+            });
+
+        }
+
+
+    function SelectLatitude(element){
+    lat = element.value;
+    console.log(surveyNo);
+
+    $.ajax({
+        type: 'GET',
+        url: {% url 'get_lat_no' %},
+        data: {'lat': lat},
+        success: function (data) {
+            $('#id_classify').val(data.classification);
+            $('#id_sub_classify').val(data.sub_classification);
+            $('#id_longitude').val(data.longitude);
+
+        }
+    });
+
+}
+
+
+    </script>
+
+
+
+<script>
+
+  function SelectRiver(element){
+    rivValue = element.value;
+     $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_river_value' %},
+                data: {'rivValue': rivValue},
+                success: function (data) {
+
+                 let subBassinValue = data['sub_bassin'];
+
+                subBassinValue_List = subBassinValue;
+                let subbassin = document.getElementById('id_sub_bassin');
+                subbassin.innerHTML = "";
+                subbassin.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < subBassinValue_List.length; i++) {
+                    subbassin.innerHTML += `<option value="${subBassinValue_List[i]}">${subBassinValue_List[i]}</option>`;
+                }
+             }
+         });
+
+  }
+
+
+  function SelectSubbasin(element){
+       sub_bassinVal = element.value
+
+          $.ajax({
+                type: 'GET',
+                url: {% url 'get_cm_subbassin_value' %},
+                data: {'sub_bassinVal': sub_bassinVal},
+                success: function (data) {
+
+                 let districtValue = data['district'];
+
+                districtValueData = districtValue;
+                let dist = document.getElementById('id_district');
+                dist.innerHTML = "";
+                dist.innerHTML = `<option value="" selected="">---------</option>`;
+
+                for (let i = 0; i < districtValueData.length; i++) {
+                    dist.innerHTML += `<option value="${districtValueData[i]}">${districtValueData[i]}</option>`;
+                }
+             }
+         });
+  }
+
+
+
+
+  function SelectDistrict(element){
+     dist = element.value
+
+        $.ajax({
+              type: 'GET',
+              url: {% url 'get_cm_dist_value' %},
+              data: {'dist': dist},
+              success: function (data) {
+
+               let talukValue = data['taluk'];
+
+              talukValueData = talukValue;
+              let taluk = document.getElementById('id_taluk');
+              taluk.innerHTML = "";
+              taluk.innerHTML = `<option value="" selected="">---------</option>`;
+
+              for (let i = 0; i < talukValueData.length; i++) {
+                  taluk.innerHTML += `<option value="${talukValueData[i]}">${talukValueData[i]}</option>`;
+              }
+           }
+       });
+  }
+
+
+
+  function SelectTaluk(element){
+   taluk = element.value
+
+      $.ajax({
+            type: 'GET',
+            url: {% url 'get_cm_taluk_value' %},
+            data: {'taluk': taluk},
+            success: function (data) {
+
+            let townValue = data['town'];
+
+            townValueData = townValue;
+            let town = document.getElementById('id_town');
+            town.innerHTML = "";
+            town.innerHTML = `<option value="" selected="">---------</option>`;
+
+            for (let i = 0; i < townValueData.length; i++) {
+                town.innerHTML += `<option value="${townValueData[i]}">${townValueData[i]}</option>`;
+            }
+         }
+     });
+}
+
+
+
+
+function SelectTown(element){
+town = element.value
+
+  $.ajax({
+        type: 'GET',
+        url: {% url 'get_CEntry_town_value' %},
+        data: {'town': town},
+        success: function (data) {
+
+        blockList = data.block_list;
+
+        console.log(blockList);
+
+        let block = document.getElementById('id_block');
+        block.innerHTML = "";
+        block.innerHTML = `<option value="" selected="">---------</option>`;
+
+        for (let i = 0; i < blockList.length; i++) {
+            block.innerHTML += `<option value="${blockList[i]}">${blockList[i]}</option>`;
+        }
+
+
+
+     }
+ });
+}
+
+
+
+function SelectBlock(element){
+block = element.value
+
+  $.ajax({
+        type: 'GET',
+        url: {% url 'get_CEntry_block_value' %},
+        data: {'block': block},
+        success: function(data) {
+
+        streetList = data.street;
+
+        console.log(streetList);
+
+        let street = document.getElementById('id_street');
+        street.innerHTML = "";
+        street.innerHTML = `<option value="" selected="">---------</option>`;
+
+        for (let i = 0; i < streetList.length; i++) {
+            street.innerHTML += `<option value="${streetList[i]}">${streetList[i]}</option>`;
+        }
+
+
+
+     }
+ });
+}
+
+
+</script>
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+

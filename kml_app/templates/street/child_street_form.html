@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h4>Street Form</h4>
+<div class="card mb-4">
+  <div class="card-body">
+      <div class="row">
+
+        <div class="mb-3 col-md-2">
+          <label class="form-label">River Name</label>
+          <input class="form-control" id="id_asset_type" name="asset_type" value="{{parent.river_name}}" disabled>
+        </div>
+
+             <div class="mb-3 col-md-2">
+          <label class="form-label">SUB BASIN</label>
+          <input class="form-control" id="id_hectare" name="hectare" value="{{parent.sub_basin}}" disabled>
+        </div>
+
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">DISTRICT NAME</label>
+          <input class="form-control" id="id_area" name="area" value="{{parent.district_name}}" disabled>
+        </div>
+
+
+         <div class="mb-3 col-md-2">
+          <label class="form-label">TALUK NAME</label>
+          <input class="form-control" id="id_sqm" name="sqm" value="{{parent.taluk_name}}" disabled>
+        </div>
+
+          <div class="mb-3 col-md-2">
+          <label class="form-label">TOWN NAME</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.town_name}}" disabled>
+        </div>
+
+           <div class="mb-3 col-md-2">
+          <label class="form-label">BLOCK NAME</label>
+          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.block_name}}" disabled>
+        </div>
+
+
+<!--           <div class="mb-3 col-md-2">-->
+<!--          <label class="form-label">REVENUE WARD NO</label>-->
+<!--          <input class="form-control" id="id_buildings" name="buildings" value="{{parent.revenue_ward_no}}" disabled>-->
+<!--        </div>-->
+<!--      </div>-->
+
+  <div style="text-align: right">
+          <a class="btn btn-sm btn-primary" href="{% url 'edit_parent_street'  parent.id %}"><i class='bx bxs-edit'></i></a>
+      </div>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+
+       <h6>Add Row</h6>
+      <button class="btn btn-sm btn-outline-info" data-bs-target="#largeModal" data-bs-toggle="modal" type="button"><i
+              class='bx bxs-add-to-queue'></i>
+      </button>
+
+<hr>
+
+      <div class="card mt-4">
+    <div class="table-responsive text-nowrap mt-2">
+        <table class="table table-sm" id="example">
+            <thead class="table-info">
+                <tr>
+                    <th>Street name</th>
+                    <th>Survey no</th>
+                    <th>Classification</th>
+                    <th>Sub classification</th>
+                    <th>EASTING</th>
+                    <th>NORTHING</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                {% for field in obj %}
+                    <tr>
+                        <td>{{field.street_name}}</td>
+                        <td>{{field.survey_no}}</td>
+                        <td>{{field.classification}}</td>
+                        <td>{{field.sub_classification}}</td>
+                        <td>{{field.langitutte}}</td>
+                        <td>{{field.lattitude}}</td>
+                        <td>
+                            <a href="{% url 'child_street_edit' field.id parent.id %}" class="btn btn-sm btn-primary" ><i class='bx bxs-edit'></i></a>
+                            <a href="{% url 'delete_child_street' field.id parent.id %}" class="btn btn-sm btn-danger" ><i class='bx bxs-trash'></i></a>
+                        </td>
+                    </tr>
+
+
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="card-body">
+  <div class="row gy-3">
+    <!-- Modal Sizes -->
+
+
+      <div aria-hidden="true" class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel3">{{parent.river_name}}</h5>
+              <button
+                      aria-label="Close"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      type="button"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    {% for field in form %}
+                    <div class="mb-2 col-md-6">
+                      <label class="form-label">{{field.label}}</label>
+                      {{field}}
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                      Close
+                    </button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+  <a href="{% url 'exit_form' %}" class="btn btn-sm btn-dark" ><i class='bx bxs-exit'></i>Exit</a>
+
+  </div></div>
+
+{% endblock content %}
